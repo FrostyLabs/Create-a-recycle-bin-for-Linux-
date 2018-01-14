@@ -1,0 +1,24 @@
+#!/bin/sh 
+
+if [ "$#" = 0 ] ; then
+	echo 'Usage:'
+	echo '  restore filenmame'
+	echo '    This is a command to restore files from the wastebin'
+	echo '    to the Restored_files directory on the Destkop'
+elif [ "$#" = 1 ] ; then
+	if [ "$1" = -u ] ; then 
+		mv ~/Desktop/Wastebin/* ~/Desktop/Restored_files/
+	else
+		mkdir -p "$(cat ~/Desktop/Wastebin/"$1"_path)"
+		mv -i ~/Desktop/Wastebin/"$1" "$(cat ~/Desktop/Wastebin/"$1"_path)"
+	fi
+elif [ "$#" = 2 ] ; then
+	mkdir -p "$(cat ~/Desktop/Wastebin/"$1"_path)"
+	mkdir -p "$(cat ~/Desktop/Wastebin/"$2"_path)"
+	mv -i  ~/Desktop/Wastebin/"$1" "$(cat ~/Desktop/Wastebin/"$1"_path)"
+	mv -i  ~/Desktop/Wastebin/"$2" "$(cat ~/Desktop/Wastebin/"$2"_path)"
+	echo "$1"' was restored to its original location' "$(cat ~/Desktop/Wastebin/"$1"_path)"
+	echo "$2"' was restored to its original location' "$(cat ~/Desktop/Wastebin/"$2"_path)"
+fi
+
+
